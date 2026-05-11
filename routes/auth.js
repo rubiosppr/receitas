@@ -8,7 +8,10 @@ router.get('/login', async (req, res) => {
   try {
     // Se já está autenticado, redireciona
     const receitas = await Receita.findAll({
-      include: [{ model: Aluno, as: 'Alunos' }]
+      include: [
+        { model: Aluno, as: 'Alunos' },
+        { model: Categoria, as: 'Categorias' }
+      ]
     });
     if (req.session && req.session.alunoId) {
       if (req.session.isAdmin || req.session.alunoId === 1) {
