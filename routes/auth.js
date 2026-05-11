@@ -1,12 +1,15 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { Aluno } = require('../models');
+const { Receita, Aluno, Categoria } = require('../models');
 
 const router = express.Router();
 
 router.get('/login', async (req, res) => {
   try {
     // Se já está autenticado, redireciona
+    const receitas = await Receita.findAll({
+      include: [{ model: Aluno, as: 'Alunos' }]
+    });
     if (req.session && req.session.alunoId) {
       if (req.session.isAdmin || req.session.alunoId === 1) {
         return res.redirect('/admin/alunos');
@@ -15,7 +18,7 @@ router.get('/login', async (req, res) => {
     }
 
     // Renderiza página de login
-    res.render('login');
+    res.render('login', { receitas }); 
   } catch (error) {
     console.error('Erro na rota /login:', error);
     res.status(500).send('Erro ao carregar página de login');
