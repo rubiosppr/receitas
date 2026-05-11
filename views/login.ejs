@@ -214,8 +214,24 @@
               <p><strong>Senha:</strong> password1</p>
             </div>
           </div>
-          <div style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow-x: auto;">
+          <div id="lista-receitas" style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
   <h2 style="color: #667eea; text-align: center; margin-bottom: 20px;">📖 Receitas da Comunidade</h2>
+
+  <form method="GET" action="/login#lista-receitas" style="margin-bottom: 25px; display: flex; justify-content: center; gap: 10px; align-items: center;">
+  <label for="categoriaNome" style="color: #555; font-weight: 500;">Filtrar por Categoria:</label>
+  
+  <select name="categoriaNome" id="categoriaNome" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd;">
+    <option value="">Todas as Categorias</option>
+    <% categorias.forEach(cat => { %>
+      <option value="<%= cat.name %>" <%= categoriaSelecionada === cat.name ? 'selected' : '' %>>
+        <%= cat.name %>
+      </option>
+    <% }); %>
+  </select>
+  
+  <button type="submit" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">Filtrar</button>
+  <a href="/login" style="color: #666; text-decoration: none; font-size: 0.9em; margin-left: 10px;">Limpar</a>
+</form>
   
   <% if (receitas && receitas.length > 0) { %>
     <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
@@ -235,14 +251,18 @@
             <td style="padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; color: #555;">
               <%= receita.description || 'Sem descrição' %>
             </td>
+           <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
+  <span style="background: #e0e7ff; color: #4338ca; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
+    <% if (receita.Categorias && receita.Categorias.length > 0) { %>
+      <%= receita.Categorias.map(cat => cat.name).join(', ') %>
+    <% } else { %>
+      N/A
+    <% } %>
+  </span>
+</td>
             <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
-              <span style="background: #e0e7ff; color: #4338ca; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
-                <%= receita.Categorias ? receita.Categorias.name : 'N/A' %>
-              </span>
-            </td>
-            <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
-              <% if (receita.link) { %>
-                <a href="<%= receita.link %>" target="_blank" style="color: #667eea; text-decoration: none;">Ver Link</a>
+              <% if (receita.externalLink) { %>
+                <a href="<%= receita.externalLink %>" target="_blank" style="color: #667eea; text-decoration: none;">Ver Link</a>
               <% } else { %>
                 -
               <% } %>

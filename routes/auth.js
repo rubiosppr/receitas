@@ -7,21 +7,37 @@ const router = express.Router();
 router.get('/login', async (req, res) => {
   try {
     // Se já está autenticado, redireciona
-    const receitas = await Receita.findAll({
-      include: [
-        { model: Aluno, as: 'Alunos' },
-        { model: Categoria, as: 'Categorias' }
-      ]
-    });
+    const { categoriaNome } = req.query;
+    let includeCondition = { 
+      model: Categoria, 
+      as: 'Categorias' 
+    };
+    if (categoriaNome) {
+      includeCondition.where = { name: categoriaNome };
+    }
+    const [receitas, categorias] = await Promise.all([
+      Receita.findAll({
+        include: [
+          { model: Aluno, as: 'Alunos' },
+          includeCondition
+        ]
+      }),
+      Categoria.findAll()
+    ]);
     if (req.session && req.session.alunoId) {
       if (req.session.isAdmin || req.session.alunoId === 1) {
         return res.redirect('/admin/alunos');
       }
       return res.redirect('/aluno/receitas');
     }
+   
 
     // Renderiza página de login
-    res.render('login', { receitas }); 
+    res.render('login', { 
+      receitas, 
+      categorias, 
+      categoriaSelecionada: categoriaNome 
+    });
   } catch (error) {
     console.error('Erro na rota /login:', error);
     res.status(500).send('Erro ao carregar página de login');
