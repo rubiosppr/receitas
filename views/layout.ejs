@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title || 'Receitas' %></title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 16px;
+      }
+      nav a {
+        color: #fff;
+        margin-right: 16px;
+        text-decoration: none;
+      }
+      main {
+        padding: 20px;
+      }
+      .nav-right {
+        float: right;
+      }
+      .clearfix::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="clearfix">
+        <div class="nav-left">
+          <a href="/">Home</a>
+          <a href="/categorias">Categorias</a>
+          <a href="/relatorio">Relatório</a>
+          <% if (user) { %>
+            <a href="/aluno/receitas">My Receitas</a>
+            <a href="/aluno/habilidades">My Habilidades</a>
+          <% } %>
+          <% if (isAdmin) { %>
+            <a href="/admin/alunos">Admin</a>
+            <a href="/admin/categorias">Admin Categorias</a>
+            <a href="/admin/habilidades">Admin Habilidades</a>
+          <% } %>
+        </div>
+        <div class="nav-right">
+          <% if (user) { %>
+            <span>Logged in as <%= user.name %></span>
+            <form method="GET" action="/logout" style="display:inline; margin-left: 10px;">
+              <button type="submit">Logout</button>
+            </form>
+          <% } else { %>
+            <a href="/login">Login</a>
+          <% } %>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <% if (messages && messages.error && messages.error.length > 0) { %>
+        <div style="color: red; background: #ffe6e6; padding: 10px; margin-bottom: 20px;">
+          <%= messages.error.join('<br>') %>
+        </div>
+      <% } %>
+      <%- body %>
+    </main>
+  </body>
+</html>

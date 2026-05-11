@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Habilidades</title>
+</head>
+<body>
+  <h1>Admin Habilidades</h1>
+  <a href="/admin/habilidades/new">Nova Habilidade</a>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      <% habilidades.forEach((habilidade) => { %>
+        <tr>
+          <td><%= habilidade.id %></td>
+          <td><%= habilidade.name %></td>
+          <td>
+            <a href="/admin/habilidades/<%= habilidade.id %>/edit">Edit</a>
+            <form method="POST" action="/admin/habilidades/<%= habilidade.id %>/delete" style="display:inline">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Categorias</title>
+</head>
+<body>
+  <h1>Admin Categorias</h1>
+  <a href="/admin/categorias/new">Nova Categoria</a>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      <% categorias.forEach((categoria) => { %>
+        <tr>
+          <td><%= categoria.id %></td>
+          <td><%= categoria.name %></td>
+          <td>
+            <a href="/admin/categorias/<%= categoria.id %>/edit">Edit</a>
+            <form method="POST" action="/admin/categorias/<%= categoria.id %>/delete" style="display:inline">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minhas Receitas</title>
+</head>
+<body>
+  <h1>Minhas Receitas</h1>
+  <a href="/aluno/receitas/new">Nova Receita</a>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Link</th><th>Categorias</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      <% receitas.forEach((receita) => { %>
+        <tr>
+          <td><%= receita.id %></td>
+          <td><%= receita.name %></td>
+          <td><%= receita.description || '' %></td>
+          <td><%= receita.externalLink || '' %></td>
+          <td><%= receita.Categorias.map((cat) => cat.name).join(', ') %></td>
+          <td>
+            <a href="/aluno/receitas/<%= receita.id %>/edit">Edit</a>
+            <form method="POST" action="/aluno/receitas/<%= receita.id %>/delete" style="display:inline">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

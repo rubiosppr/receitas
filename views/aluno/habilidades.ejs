@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minhas Habilidades</title>
+</head>
+<body>
+  <h1>Minhas Habilidades</h1>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Nível</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      <% habilidades.forEach((habilidade) => { %>
+        <tr>
+          <td><%= habilidade.id %></td>
+          <td><%= habilidade.name %></td>
+          <td><%= habilidade.AlunoHabilidade.level %></td>
+          <td>
+            <form method="POST" action="/aluno/habilidades/<%= habilidade.id %>/delete" style="display:inline">
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <h2>Add Habilidade</h2>
+  <form method="POST" action="/aluno/habilidades/add">
+    <div>
+      <label>Habilidade</label>
+      <select name="habilidadeId" required>
+        <% allHabilidades.forEach((habilidade) => { %>
+          <option value="<%= habilidade.id %>"><%= habilidade.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div>
+      <label>Level</label>
+      <input type="number" name="level" min="0" max="10" value="0" required />
+    </div>
+    <button type="submit">Add</button>
+  </form>
+</body>
+</html>

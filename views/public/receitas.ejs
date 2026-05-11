@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receitas Públicas</title>
+</head>
+<body>
+  <h1>Receitas Públicas</h1>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Link</th><th>Categorias</th><th>Alunos</th></tr>
+    </thead>
+    <tbody>
+      <% receitas.forEach((receita) => { %>
+        <tr>
+          <td><%= receita.id %></td>
+          <td><%= receita.name %></td>
+          <td><%= receita.description || '' %></td>
+          <td><%= receita.externalLink || '' %></td>
+          <td><%= receita.Categorias.map((cat) => cat.name).join(', ') %></td>
+          <td><%= receita.Alunos.map((aluno) => aluno.name).join(', ') %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
