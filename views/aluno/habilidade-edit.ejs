@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Habilidade</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
+    .page-container { width: 100%; max-width: 720px; margin: 30px auto; padding: 30px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.13); }
+    .page-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .page-header h1 { font-size: 2rem; color: #2f2f6c; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: #667eea; text-decoration: none; font-weight: 600; }
+    .nav-links span { color: #555; }
+    .form-card { background: #f8fbff; border: 1px solid #e6ebfb; border-radius: 20px; padding: 28px; }
+    .form-group { margin-bottom: 22px; }
+    label { display: block; margin-bottom: 10px; font-weight: 600; color: #4a4a7d; }
+    input[type="range"] { width: 100%; }
+    .level-output { margin-top: 10px; padding: 16px; background: #eef2ff; border-radius: 14px; color: #4a4a7d; font-size: 1rem; font-weight: 700; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 14px; padding: 14px 24px; cursor: pointer; font-weight: 700; }
+    .btn-secondary { background: #eef2ff; color: #334; border: none; border-radius: 14px; padding: 14px 24px; text-decoration: none; display: inline-flex; justify-content: center; align-items: center; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(102,126,234,0.24); }
+    .btn-secondary:hover { background: #dde4ff; }
+    @media (max-width: 640px) { .page-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Editar Habilidade</h1>
+      <div class="nav-links">
+        <span>Olá, <strong><%= alunoName || 'User' %></strong></span>
+        <a href="/aluno/habilidades">Voltar</a>
+        <a href="/logout">Sair</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form method="POST" action="/aluno/habilidades/<%= habilidade.id %>">
+        <div class="form-group">
+          <label>Nível (0-10)</label>
+          <input type="range" name="level" min="0" max="10" value="<%= currentLevel %>" required id="levelRange" />
+          <div class="level-output" id="levelDisplay"><%= currentLevel %>/10</div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Salvar</button>
+          <a href="/aluno/habilidades" class="btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const rangeInput = document.querySelector('#levelRange');
+    const display = document.querySelector('#levelDisplay');
+    if (rangeInput && display) {
+      rangeInput.addEventListener('input', function() {
+        display.textContent = this.value + '/10';
+      });
+    }
+  </script>
+</body>
+</html>

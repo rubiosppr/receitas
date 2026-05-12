@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Nova Categoria</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
+    .page-container { width: 100%; max-width: 720px; margin: 30px auto; padding: 30px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.13); }
+    .page-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .page-header h1 { font-size: 2rem; color: #2f2f6c; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: #667eea; text-decoration: none; font-weight: 600; }
+    .form-card { background: #f8fbff; border: 1px solid #e6ebfb; border-radius: 20px; padding: 28px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 10px; font-weight: 600; color: #4a4a7d; }
+    input { width: 100%; padding: 14px 16px; border: 1px solid #dfe3ee; border-radius: 14px; font-size: 1rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 14px; padding: 12px 24px; cursor: pointer; font-weight: 700; }
+    .btn-secondary { background: #eef2ff; color: #334; border: none; border-radius: 14px; padding: 12px 24px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(102,126,234,0.24); }
+    a { color: #667eea; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .form-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Nova Categoria</h1>
+      <div class="nav-links">
+        <a href="/admin/categorias">Voltar</a>
+        <span>Olá, <strong><%= alunoName || 'Admin' %></strong></span>
+        <a href="/logout">Sair</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form method="POST" action="/admin/categorias">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" name="name" required />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Criar Categoria</button>
+          <a href="/admin/categorias" class="btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

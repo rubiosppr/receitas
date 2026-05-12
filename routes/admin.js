@@ -8,95 +8,16 @@ router.use(isAuthenticated);
 
 router.get('/admin/alunos', async (req, res) => {
   const alunos = await Aluno.findAll();
-
-  const rows = alunos
-    .map(
-      (aluno) => `
-        <tr>
-          <td>${aluno.id}</td>
-          <td>${aluno.name}</td>
-          <td>${aluno.email}</td>
-          <td>
-            <a href="/admin/alunos/${aluno.id}/edit">Edit</a>
-            <form method="POST" action="/admin/alunos/${aluno.id}/delete" style="display:inline">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>`
-    )
-    .join('');
-
-  res.send(`
-    <html>
-      <head>
-        <title>Alunos</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          table { border-collapse: collapse; }
-          td, th { border: 1px solid #ddd; padding: 8px; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/alunos">Alunos</a> | 
-          <a href="/admin/categorias">Categorias</a> | 
-          <a href="/admin/habilidades">Habilidades</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Alunos</h1>
-        <a href="/admin/alunos/new">Novo Aluno</a>
-        <table border="1" cellpadding="8">
-          <thead>
-            <tr><th>ID</th><th>Name</th><th>Email</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
-      </body>
-    </html>
-  `);
+  res.render('admin/alunos', {
+    alunos: alunos,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.get('/admin/alunos/new', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <title>Novo Aluno</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/alunos">Back to Alunos</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Novo Aluno</h1>
-        <form method="POST" action="/admin/alunos">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" required />
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" name="email" required />
-          </div>
-          <div>
-            <label>Password</label>
-            <input type="password" name="password" required />
-          </div>
-          <button type="submit">Create</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/aluno-new', {
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/alunos', async (req, res) => {
@@ -118,42 +39,10 @@ router.get('/admin/alunos/:id/edit', async (req, res) => {
     return res.status(404).send('Aluno not found.');
   }
 
-  res.send(`
-    <html>
-      <head>
-        <title>Edit Aluno</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/alunos">Back to Alunos</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Edit Aluno</h1>
-        <form method="POST" action="/admin/alunos/${aluno.id}">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" value="${aluno.name}" required />
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" name="email" value="${aluno.email}" required />
-          </div>
-          <div>
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Leave blank to keep current" />
-          </div>
-          <button type="submit">Update</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/aluno-edit', {
+    aluno: aluno,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/alunos/:id', async (req, res) => {
@@ -196,86 +85,16 @@ router.post('/admin/alunos/:id/delete', async (req, res) => {
 
 router.get('/admin/categorias', async (req, res) => {
   const categorias = await Categoria.findAll();
-
-  const rows = categorias
-    .map(
-      (categoria) => `
-        <tr>
-          <td>${categoria.id}</td>
-          <td>${categoria.name}</td>
-          <td>
-            <a href="/admin/categorias/${categoria.id}/edit">Edit</a>
-            <form method="POST" action="/admin/categorias/${categoria.id}/delete" style="display:inline">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>`
-    )
-    .join('');
-
-  res.send(`
-    <html>
-      <head>
-        <title>Categorias</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          table { border-collapse: collapse; }
-          td, th { border: 1px solid #ddd; padding: 8px; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/alunos">Alunos</a> | 
-          <a href="/admin/categorias">Categorias</a> | 
-          <a href="/admin/habilidades">Habilidades</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Categorias</h1>
-        <a href="/admin/categorias/new">Nova Categoria</a>
-        <table border="1" cellpadding="8">
-          <thead>
-            <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
-      </body>
-    </html>
-  `);
+  res.render('admin/categorias', {
+    categorias: categorias,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.get('/admin/categorias/new', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <title>Nova Categoria</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/categorias">Back to Categorias</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Nova Categoria</h1>
-        <form method="POST" action="/admin/categorias">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" required />
-          </div>
-          <button type="submit">Create</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/categoria-new', {
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/categorias', async (req, res) => {
@@ -297,34 +116,10 @@ router.get('/admin/categorias/:id/edit', async (req, res) => {
     return res.status(404).send('Categoria not found.');
   }
 
-  res.send(`
-    <html>
-      <head>
-        <title>Edit Categoria</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/categorias">Back to Categorias</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Edit Categoria</h1>
-        <form method="POST" action="/admin/categorias/${categoria.id}">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" value="${categoria.name}" required />
-          </div>
-          <button type="submit">Update</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/categoria-edit', {
+    categoria: categoria,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/categorias/:id', async (req, res) => {
@@ -359,86 +154,16 @@ router.post('/admin/categorias/:id/delete', async (req, res) => {
 
 router.get('/admin/habilidades', async (req, res) => {
   const habilidades = await Habilidade.findAll();
-
-  const rows = habilidades
-    .map(
-      (habilidade) => `
-        <tr>
-          <td>${habilidade.id}</td>
-          <td>${habilidade.name}</td>
-          <td>
-            <a href="/admin/habilidades/${habilidade.id}/edit">Edit</a>
-            <form method="POST" action="/admin/habilidades/${habilidade.id}/delete" style="display:inline">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>`
-    )
-    .join('');
-
-  res.send(`
-    <html>
-      <head>
-        <title>Habilidades</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          table { border-collapse: collapse; }
-          td, th { border: 1px solid #ddd; padding: 8px; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/alunos">Alunos</a> | 
-          <a href="/admin/categorias">Categorias</a> | 
-          <a href="/admin/habilidades">Habilidades</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Habilidades</h1>
-        <a href="/admin/habilidades/new">Nova Habilidade</a>
-        <table border="1" cellpadding="8">
-          <thead>
-            <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
-      </body>
-    </html>
-  `);
+  res.render('admin/habilidades', {
+    habilidades: habilidades,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.get('/admin/habilidades/new', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <title>Nova Habilidade</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/habilidades">Back to Habilidades</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Nova Habilidade</h1>
-        <form method="POST" action="/admin/habilidades">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" required />
-          </div>
-          <button type="submit">Create</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/habilidade-new', {
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/habilidades', async (req, res) => {
@@ -460,34 +185,10 @@ router.get('/admin/habilidades/:id/edit', async (req, res) => {
     return res.status(404).send('Habilidade not found.');
   }
 
-  res.send(`
-    <html>
-      <head>
-        <title>Edit Habilidade</title>
-        <style>
-          nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
-          nav a { margin-right: 15px; }
-          form div { margin-bottom: 10px; }
-          label { display: inline-block; width: 120px; font-weight: bold; }
-        </style>
-      </head>
-      <body>
-        <nav>
-          <a href="/admin/habilidades">Back to Habilidades</a> | 
-          <span>Logged in as: <strong>${req.session.alunoName || 'Admin'}</strong></span> | 
-          <a href="/logout">Logout</a>
-        </nav>
-        <h1>Edit Habilidade</h1>
-        <form method="POST" action="/admin/habilidades/${habilidade.id}">
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" value="${habilidade.name}" required />
-          </div>
-          <button type="submit">Update</button>
-        </form>
-      </body>
-    </html>
-  `);
+  res.render('admin/habilidade-edit', {
+    habilidade: habilidade,
+    alunoName: req.session.alunoName
+  });
 });
 
 router.post('/admin/habilidades/:id', async (req, res) => {

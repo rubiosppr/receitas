@@ -27,7 +27,7 @@
               border-radius: 15px;
               box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
               width: 100%;
-              max-width: 450px;
+              max-width: 500px;
               padding: 50px 40px;
             }
 
@@ -213,6 +213,11 @@
               <p><strong>Email:</strong> aluno1@example.com</p>
               <p><strong>Senha:</strong> password1</p>
             </div>
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="/login#lista-receitas" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;"><strong>Lista de Receitas</strong></a>
+            <a href="/login#relatorio-habilidades" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;"><strong>Relatório de Habilidades</strong></a>
+         </div>
+
           </div>
           <div id="lista-receitas" style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
   <h2 style="color: #667eea; text-align: center; margin-bottom: 20px;">📖 Receitas da Comunidade</h2>
@@ -230,7 +235,7 @@
   </select>
   
   <button type="submit" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">Filtrar</button>
-  <a href="/login" style="color: #666; text-decoration: none; font-size: 0.9em; margin-left: 10px;">Limpar</a>
+  <a href="/login#lista-receitas" style="color: #666; text-decoration: none; font-size: 0.9em; margin-left: 10px;">Limpar</a>
 </form>
   
   <% if (receitas && receitas.length > 0) { %>
@@ -277,6 +282,26 @@
   <% } else { %>
     <p style="text-align: center; color: #999;">Ainda não há receitas cadastradas.</p>
   <% } %>
+</div>
+<div id="relatorio-habilidades" tyle="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  <h2 style="color: #f9f9f9; text-align: center; margin-bottom: 25px;">📊 Relatório de Habilidades dos Alunos</h2>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+    <% relatorioHabilidades.forEach(hab => { %>
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <span style="font-weight: bold; color: #444;"><%= hab.nome %></span>
+          <span style="color: #667eea; font-weight: bold;"><%= hab.proporcao.toFixed(1) %>%</span>
+        </div>
+        
+        <div style="width: 100%; background-color: #e0e0e0; border-radius: 5px; height: 12px; overflow: hidden;">
+          <div style="width: <%= hab.proporcao %>%; height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.5s ease;">
+          </div>
+        </div>
+        <p style="font-size: 0.8em; color: #888; margin-top: 8px;">Possuída por <%= hab.quantidade %> de <%= totalAlunos %> alunos</p>
+      </div>
+    <% }); %>
+  </div>
 </div>
         </body>
       </html>

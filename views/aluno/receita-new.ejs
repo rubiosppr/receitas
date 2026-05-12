@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Receita</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
+    .page-container { width: 100%; max-width: 780px; margin: 30px auto; padding: 30px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.13); }
+    .page-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .page-header h1 { font-size: 2rem; color: #2f2f6c; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: #667eea; text-decoration: none; font-weight: 600; }
+    .nav-links span { color: #555; }
+    .form-card { background: #f8fbff; border: 1px solid #e6ebfb; border-radius: 20px; padding: 28px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 10px; font-weight: 600; color: #4a4a7d; }
+    input, textarea, select { width: 100%; padding: 14px 16px; border: 1px solid #dfe3ee; border-radius: 14px; font-size: 1rem; }
+    textarea { min-height: 140px; resize: vertical; }
+    select[multiple] { min-height: 140px; }
+    .field-info { color: #6b6f8a; font-size: 0.95rem; margin-top: 8px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; align-items: center; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 14px; padding: 14px 24px; cursor: pointer; font-weight: 700; }
+    .btn-secondary { background: #eef2ff; color: #334; border: none; border-radius: 14px; padding: 14px 24px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(102,126,234,0.24); }
+    a { color: #667eea; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .form-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Cadastrar Nova Receita</h1>
+      <div class="nav-links">
+        <span>Olá, <strong><%= alunoName || 'User' %></strong></span>
+        <a href="/aluno/receitas">Voltar</a>
+        <a href="/logout">Sair</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form method="POST" action="/aluno/receitas">
+        <div class="form-group">
+          <label>Nome <span style="color:#d9534f;">*</span></label>
+          <input type="text" name="name" required placeholder="Ex: Bolo de Chocolate" />
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea name="description" placeholder="Digite os ingredientes, modo de preparo, etc..."></textarea>
+          <p class="field-info">Campo opcional</p>
+        </div>
+        <div class="form-group">
+          <label>Link Externo</label>
+          <input type="url" name="externalLink" placeholder="Ex: https://www.exemplo.com/receita" />
+          <p class="field-info">Cole aqui um link para a receita completa (opcional)</p>
+        </div>
+        <div class="form-group">
+          <label>Categorias</label>
+          <select name="categoryIds" multiple title="Selecione uma ou mais categorias (Ctrl+Click)">
+            <% if (categories && categories.length > 0) { %>
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat.id %>"><%= cat.name %></option>
+              <% }); %>
+            <% } %>
+          </select>
+          <p class="field-info">Selecione as categorias desta receita (opcional - use Ctrl+Click para múltiplas seleções)</p>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Cadastrar Receita</button>
+          <a href="/aluno/receitas" class="btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

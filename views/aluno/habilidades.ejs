@@ -1,46 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minhas Habilidades</title>
+  <title>Minhas Habilidades Culinárias</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
+    .page-container { width: 100%; max-width: 1180px; margin: 30px auto; padding: 30px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.13); }
+    .page-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .page-header h1 { font-size: 2rem; color: #2f2f6c; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; color: #555; }
+    .nav-links a { color: #667eea; text-decoration: none; font-weight: 600; }
+    .nav-links span { color: #555; }
+    .card { background: #f8fbff; border: 1px solid #e6ebfb; border-radius: 20px; padding: 24px; }
+    .section-title { margin-bottom: 20px; color: #3d4475; font-size: 1.25rem; font-weight: 700; }
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 16px 14px; text-align: left; border-bottom: 1px solid #e6ebfb; }
+    th { background: #f2f6ff; color: #4a4a7d; font-weight: 700; }
+    td { color: #444; vertical-align: middle; }
+    .progress-bar { background: #edf2ff; border-radius: 999px; width: 220px; height: 20px; overflow: hidden; }
+    .progress-fill { background: #4caf50; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; }
+    .action-link, .action-btn { color: #667eea; text-decoration: none; font-weight: 700; background: none; border: none; cursor: pointer; }
+    .action-link:hover, .action-btn:hover { text-decoration: underline; }
+    .empty-state { padding: 32px; border-radius: 18px; background: #ffffff; border: 1px dashed #d4d8ee; color: #6b6f8a; text-align: center; }
+    .form-card { margin-top: 28px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 10px; font-weight: 600; color: #4a4a7d; }
+    select, input[type="range"], input[type="number"] { width: 100%; padding: 14px 16px; border: 1px solid #dfe3ee; border-radius: 14px; font-size: 1rem; }
+    input[type="number"] { max-width: 120px; }
+    .field-info { color: #6b6f8a; font-size: 0.95rem; margin-top: 8px; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 14px; padding: 14px 24px; cursor: pointer; font-weight: 700; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(102,126,234,0.2); }
+    .btn-secondary { background: #eef2ff; color: #334; border: none; border-radius: 14px; padding: 14px 24px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-secondary:hover { background: #dde4ff; }
+    @media (max-width: 768px) { .page-header { flex-direction: column; align-items: stretch; } table { min-width: 100%; } }
+  </style>
 </head>
 <body>
-  <h1>Minhas Habilidades</h1>
-  <table border="1" cellpadding="8">
-    <thead>
-      <tr><th>ID</th><th>Nome</th><th>Nível</th><th>Ações</th></tr>
-    </thead>
-    <tbody>
-      <% habilidades.forEach((habilidade) => { %>
-        <tr>
-          <td><%= habilidade.id %></td>
-          <td><%= habilidade.name %></td>
-          <td><%= habilidade.AlunoHabilidade.level %></td>
-          <td>
-            <form method="POST" action="/aluno/habilidades/<%= habilidade.id %>/delete" style="display:inline">
-              <button type="submit">Remove</button>
-            </form>
-          </td>
-        </tr>
-      <% }); %>
-    </tbody>
-  </table>
-  <h2>Add Habilidade</h2>
-  <form method="POST" action="/aluno/habilidades/add">
-    <div>
-      <label>Habilidade</label>
-      <select name="habilidadeId" required>
-        <% allHabilidades.forEach((habilidade) => { %>
-          <option value="<%= habilidade.id %>"><%= habilidade.name %></option>
-        <% }); %>
-      </select>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Minhas Habilidades Culinárias</h1>
+      <div class="nav-links">
+        <span>Olá, <strong><%= alunoName || 'User' %></strong></span>
+        <a href="/aluno/receitas">Minhas Receitas</a>
+        <a href="/logout">Sair</a>
+      </div>
     </div>
-    <div>
-      <label>Level</label>
-      <input type="number" name="level" min="0" max="10" value="0" required />
+
+    <div class="card">
+      <% if (habilidades && habilidades.length > 0) { %>
+        <div class="section-title">Habilidades Cadastradas (<%= habilidades.length %>)</div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Habilidade</th>
+                <th>Nível</th>
+                <th>Progresso</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% habilidades.forEach(habilidade => { %>
+                <% const level = habilidade.AlunoHabilidade.level; %>
+                <% const barWidth = (level / 10) * 100; %>
+                <tr>
+                  <td><%= habilidade.name %></td>
+                  <td><%= level %>/10</td>
+                  <td>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width:<%= barWidth %>%;"><% if (level > 2) { %><%= level %><% } %></div>
+                    </div>
+                  </td>
+                  <td>
+                    <a href="/aluno/habilidades/<%= habilidade.id %>/edit" class="action-link">Editar</a>
+                    <form method="POST" action="/aluno/habilidades/<%= habilidade.id %>/delete" style="display:inline; margin-left: 10px;" onsubmit="return confirm('Tem certeza?');">
+                      <button type="submit" class="action-btn">Remover</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          Você ainda não cadastrou nenhuma habilidade culinária. <a href="#adicionar">Adicione uma agora!</a>
+        </div>
+      <% } %>
     </div>
-    <button type="submit">Add</button>
-  </form>
+
+    <div class="card form-card">
+      <div class="section-title" id="adicionar">Adicionar Nova Habilidade</div>
+      <% if (availableHabilidades && availableHabilidades.length > 0) { %>
+        <form method="POST" action="/aluno/habilidades/add">
+          <div class="form-group">
+            <label>Selecione uma Habilidade</label>
+            <select name="habilidadeId" required>
+              <option value="">-- Escolha uma habilidade --</option>
+              <% availableHabilidades.forEach(habilidade => { %>
+                <option value="<%= habilidade.id %>"><%= habilidade.name %></option>
+              <% }); %>
+            </select>
+            <p class="field-info">Escolha uma habilidade não cadastrada</p>
+          </div>
+          <div class="form-group">
+            <label>Nível (0-10)</label>
+            <input type="range" name="level" min="0" max="10" value="5" required id="levelRange" />
+            <input type="number" name="levelDisplay" min="0" max="10" value="5" disabled id="levelDisplay" />
+            <p class="field-info">Defina seu nível de proficiência nesta habilidade</p>
+          </div>
+          <button type="submit" class="btn-primary">Adicionar Habilidade</button>
+        </form>
+      <% } else { %>
+        <div class="empty-state">Parabéns! Você já cadastrou todas as habilidades disponíveis no sistema.</div>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    const rangeInput = document.querySelector('#levelRange');
+    const displayInput = document.querySelector('#levelDisplay');
+    if (rangeInput && displayInput) {
+      rangeInput.addEventListener('input', function() {
+        displayInput.value = this.value;
+      });
+    }
+  </script>
 </body>
 </html>
