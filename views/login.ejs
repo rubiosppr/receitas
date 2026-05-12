@@ -1,307 +1,318 @@
 <!DOCTYPE html>
-      <html lang="pt-BR">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>🍳 Login - Sistema de Receitas</title>
-          <style>
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
+<html lang="pt-BR">
 
-            body {
-              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: flex-start;
-              padding: 20px;
-            }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍳 Login - Sistema de Receitas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-            .login-container {
-              background: white;
-              border-radius: 15px;
-              box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-              width: 100%;
-              max-width: 500px;
-              padding: 50px 40px;
-            }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+    }
 
-            .login-header {
-              text-align: center;
-              margin-bottom: 40px;
-            }
+    .login-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+      padding: 50px 40px;
+    }
 
-            .login-header h1 {
-              color: #667eea;
-              font-size: 2.5em;
-              margin-bottom: 10px;
-            }
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-            .login-header p {
-              color: #666;
-              font-size: 1em;
-            }
+    .login-header h1 {
+      color: #667eea;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
 
-            .form-group {
-              margin-bottom: 20px;
-            }
+    .login-header p {
+      color: #666;
+      font-size: 1em;
+    }
 
-            .form-group label {
-              display: block;
-              color: #555;
-              font-weight: 500;
-              margin-bottom: 8px;
-              font-size: 0.95em;
-            }
+    .form-group {
+      margin-bottom: 20px;
+    }
 
-            .form-group input {
-              width: 100%;
-              padding: 12px 15px;
-              border: 2px solid #e0e0e0;
-              border-radius: 8px;
-              font-size: 1em;
-              transition: all 0.3s;
-            }
+    .form-group label {
+      display: block;
+      color: #555;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.95em;
+    }
 
-            .form-group input:focus {
-              outline: none;
-              border-color: #667eea;
-              box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            }
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: all 0.3s;
+    }
 
-            .submit-btn {
-              width: 100%;
-              padding: 12px;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              border: none;
-              border-radius: 8px;
-              font-size: 1.05em;
-              font-weight: 600;
-              cursor: pointer;
-              transition: all 0.3s;
-              margin-top: 10px;
-            }
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
 
-            .submit-btn:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-            }
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
 
-            .divider {
-              margin: 30px 0;
-              position: relative;
-              text-align: center;
-              color: #999;
-            }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
 
-            .divider::before {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 0;
-              right: 0;
-              height: 1px;
-              background: #e0e0e0;
-            }
+    .divider {
+      margin: 30px 0;
+      position: relative;
+      text-align: center;
+      color: #999;
+    }
 
-            .divider span {
-              background: white;
-              padding: 0 15px;
-              position: relative;
-            }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e0e0e0;
+    }
 
-            .test-credentials {
-              background-color: #f9f9f9;
-              padding: 20px;
-              border-radius: 8px;
-              border-left: 4px solid #667eea;
-              font-size: 0.9em;
-            }
+    .divider span {
+      background: white;
+      padding: 0 15px;
+      position: relative;
+    }
 
-            .test-credentials h3 {
-              color: #333;
-              margin-bottom: 15px;
-              font-size: 0.95em;
-            }
+    .test-credentials {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      font-size: 0.9em;
+    }
 
-            .test-credentials p {
-              color: #666;
-              margin-bottom: 8px;
-              line-height: 1.5;
-            }
+    .test-credentials h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
 
-            .test-credentials strong {
-              color: #667eea;
-            }
+    .test-credentials p {
+      color: #666;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
 
-            .footer-link {
-              text-align: center;
-              margin-top: 20px;
-              font-size: 0.9em;
-              color: #666;
-            }
+    .test-credentials strong {
+      color: #667eea;
+    }
 
-            .footer-link a {
-              color: #667eea;
-              text-decoration: none;
-            }
+    .footer-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
 
-            .footer-link a:hover {
-              text-decoration: underline;
-            }
+    .footer-link a {
+      color: #667eea;
+      text-decoration: none;
+    }
 
-            @media (max-width: 480px) {
-              .login-container {
-                padding: 30px 20px;
-              }
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
 
-              .login-header h1 {
-                font-size: 2em;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="login-container">
-            <div class="login-header">
-              <h1>🍳</h1>
-              <h1>Receitas</h1>
-              <p>Sistema de Receitas Culinárias</p>
-            </div>
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
 
-            <form method="POST" action="/login">
-              <div class="form-group">
-                <label for="email">📧 Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  placeholder="seu@email.com"
-                  required 
-                  autofocus
-                />
-              </div>
+      .login-header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
 
-              <div class="form-group">
-                <label for="password">🔐 Senha</label>
-                <input 
-                  type="password" 
-                  id="password" 
-                  name="password" 
-                  placeholder="••••••••"
-                  required 
-                />
-              </div>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>🍳</h1>
+      <h1>Receitas</h1>
+      <p>Sistema de Receitas Culinárias</p>
+    </div>
 
-              <button type="submit" class="submit-btn">🚀 Entrar no Sistema</button>
-            </form>
-
-            <div class="divider"><span>Dados de Teste</span></div>
-
-            <div class="test-credentials">
-              <h3>👑 Administrador</h3>
-              <p><strong>Email:</strong> admin@example.com</p>
-              <p><strong>Senha:</strong> admin123</p>
-
-              <h3 style="margin-top: 15px;">👨‍🍳 Aluno</h3>
-              <p><strong>Email:</strong> aluno1@example.com</p>
-              <p><strong>Senha:</strong> password1</p>
-            </div>
-          <div style="text-align: center; margin-top: 30px;">
-            <a href="/login#lista-receitas" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;"><strong>Lista de Receitas</strong></a>
-            <a href="/login#relatorio-habilidades" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;"><strong>Relatório de Habilidades</strong></a>
-         </div>
-
-          </div>
-          <div id="lista-receitas" style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-  <h2 style="color: #667eea; text-align: center; margin-bottom: 20px;">📖 Receitas da Comunidade</h2>
-
-  <form method="GET" action="/login#lista-receitas" style="margin-bottom: 25px; display: flex; justify-content: center; gap: 10px; align-items: center;">
-  <label for="categoriaNome" style="color: #555; font-weight: 500;">Filtrar por Categoria:</label>
-  
-  <select name="categoriaNome" id="categoriaNome" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd;">
-    <option value="">Todas as Categorias</option>
-    <% categorias.forEach(cat => { %>
-      <option value="<%= cat.name %>" <%= categoriaSelecionada === cat.name ? 'selected' : '' %>>
-        <%= cat.name %>
-      </option>
-    <% }); %>
-  </select>
-  
-  <button type="submit" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">Filtrar</button>
-  <a href="/login#lista-receitas" style="color: #666; text-decoration: none; font-size: 0.9em; margin-left: 10px;">Limpar</a>
-</form>
-  
-  <% if (receitas && receitas.length > 0) { %>
-    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-      <thead>
-        <tr style="background-color: #f5f5f5;">
-          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Nome</th>
-          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Descrição</th>
-          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Categoria</th>
-          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Link</th>
-          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Criada por</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% receitas.forEach(receita => { %>
-          <tr>
-            <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><strong><%= receita.name %></strong></td>
-            <td style="padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; color: #555;">
-              <%= receita.description || 'Sem descrição' %>
-            </td>
-           <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
-  <span style="background: #e0e7ff; color: #4338ca; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
-    <% if (receita.Categorias && receita.Categorias.length > 0) { %>
-      <%= receita.Categorias.map(cat => cat.name).join(', ') %>
-    <% } else { %>
-      N/A
-    <% } %>
-  </span>
-</td>
-            <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
-              <% if (receita.externalLink) { %>
-                <a href="<%= receita.externalLink %>" target="_blank" style="color: #667eea; text-decoration: none;">Ver Link</a>
-              <% } else { %>
-                -
-              <% } %>
-            </td>
-            <td style="padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em;">
-              <%= receita.Alunos ? receita.Alunos.map(a => a.name).join(', ') : 'Desconhecido' %>
-            </td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-  <% } else { %>
-    <p style="text-align: center; color: #999;">Ainda não há receitas cadastradas.</p>
-  <% } %>
-</div>
-<div id="relatorio-habilidades" tyle="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-  <h2 style="color: #f9f9f9; text-align: center; margin-bottom: 25px;">📊 Relatório de Habilidades dos Alunos</h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-    <% relatorioHabilidades.forEach(hab => { %>
-      <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span style="font-weight: bold; color: #444;"><%= hab.nome %></span>
-          <span style="color: #667eea; font-weight: bold;"><%= hab.proporcao.toFixed(1) %>%</span>
-        </div>
-        
-        <div style="width: 100%; background-color: #e0e0e0; border-radius: 5px; height: 12px; overflow: hidden;">
-          <div style="width: <%= hab.proporcao %>%; height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.5s ease;">
-          </div>
-        </div>
-        <p style="font-size: 0.8em; color: #888; margin-top: 8px;">Possuída por <%= hab.quantidade %> de <%= totalAlunos %> alunos</p>
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label for="email">📧 Email</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" required autofocus />
       </div>
-    <% }); %>
+
+      <div class="form-group">
+        <label for="password">🔐 Senha</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required />
+      </div>
+
+      <button type="submit" class="submit-btn">🚀 Entrar no Sistema</button>
+    </form>
+
+    <div class="divider"><span>Dados de Teste</span></div>
+
+    <div class="test-credentials">
+      <h3>👑 Administrador</h3>
+      <p><strong>Email:</strong> admin@example.com</p>
+      <p><strong>Senha:</strong> admin123</p>
+
+      <h3 style="margin-top: 15px;">👨‍🍳 Aluno</h3>
+      <p><strong>Email:</strong> aluno1@example.com</p>
+      <p><strong>Senha:</strong> password1</p>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="/login#lista-receitas"
+        style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; text-decoration: none;"><strong>Lista
+          de Receitas</strong></a>
+      <a href="/login#relatorio-habilidades"
+        style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; text-decoration: none;"><strong>Relatório
+          de Habilidades</strong></a>
+    </div>
+
   </div>
-</div>
-        </body>
-      </html>
+  <div id="lista-receitas"
+    style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+    <h2 style="color: #667eea; text-align: center; margin-bottom: 20px;">📖 Receitas da Comunidade</h2>
+
+    <form method="GET" action="/login#lista-receitas"
+      style="margin-bottom: 25px; display: flex; justify-content: center; gap: 10px; align-items: center;">
+      <label for="categoriaNome" style="color: #555; font-weight: 500;">Filtrar por Categoria:</label>
+
+      <select name="categoriaNome" id="categoriaNome"
+        style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd;">
+        <option value="">Todas as Categorias</option>
+        <% categorias.forEach(cat=> { %>
+          <option value="<%= cat.name %>" <%=categoriaSelecionada===cat.name ? 'selected' : '' %>>
+            <%= cat.name %>
+          </option>
+          <% }); %>
+      </select>
+
+      <button type="submit"
+        style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">Filtrar</button>
+      <a href="/login#lista-receitas"
+        style="color: #666; text-decoration: none; font-size: 0.9em; margin-left: 10px;">Limpar</a>
+    </form>
+
+    <% if (receitas && receitas.length> 0) { %>
+      <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+        <thead>
+          <tr style="background-color: #f5f5f5;">
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Nome</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Descrição</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Categoria</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Link</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e0e0e0;">Criada por</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% receitas.forEach(receita=> { %>
+            <tr>
+              <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><strong>
+                  <%= receita.name %>
+                </strong></td>
+              <td style="padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; color: #555;">
+                <%= receita.description || 'Sem descrição' %>
+              </td>
+              <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
+                <span
+                  style="background: #e0e7ff; color: #4338ca; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
+                  <% if (receita.Categorias && receita.Categorias.length> 0) { %>
+                    <%= receita.Categorias.map(cat=> cat.name).join(', ') %>
+                      <% } else { %>
+                        N/A
+                        <% } %>
+                </span>
+              </td>
+              <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
+                <% if (receita.externalLink) { %>
+                  <a href="<%= receita.externalLink %>" target="_blank"
+                    style="color: #667eea; text-decoration: none;">Ver Link</a>
+                  <% } else { %>
+                    -
+                    <% } %>
+              </td>
+              <td style="padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em;">
+                <%= receita.Alunos ? receita.Alunos.map(a=> a.name).join(', ') : 'Desconhecido' %>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+        <p style="text-align: center; color: #999;">Ainda não há receitas cadastradas.</p>
+        <% } %>
+  </div>
+  <div id="relatorio-habilidades"
+    style="width: 100%; max-width: 1000px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+    <h2 style="color: #667eea; text-align: center; margin-bottom: 25px;">📊 Relatório de Habilidades dos Alunos</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      <% relatorioHabilidades.forEach(hab=> { %>
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #444;">
+              <%= hab.nome %>
+            </span>
+            <span style="color: #667eea; font-weight: bold;">
+              <%= hab.proporcao.toFixed(1) %>%
+            </span>
+          </div>
+
+          <div style="width: 100%; background-color: #e0e0e0; border-radius: 5px; height: 12px; overflow: hidden;">
+            <div <%-
+              `style="height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.5s ease; width: ${hab.proporcao}%;"
+              ` %>>
+            </div>
+          </div>
+          <p style="font-size: 0.8em; color: #888; margin-top: 8px;">Possuída por <%= hab.quantidade %> de <%=
+                totalAlunos %> alunos</p>
+        </div>
+        <% }); %>
+    </div>
+  </div>
+</body>
+
+</html>
