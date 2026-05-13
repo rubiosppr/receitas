@@ -26,10 +26,6 @@ Existem relacionamentos complexos, como Receitas pertencendo a Categorias e a Al
 
 A conexão com o banco de dados é feita através do arquivo **`config/database.js`**. 
 
-Por padrão, a aplicação está configurada com os seguintes dados:
-- **Database:** `receitas_db`
-- **User:** `root`
-- **Password:** `mateus18`
 - **Host:** Definido pela variável de ambiente `DB_HOST` ou, se ausente, será `localhost`.
 
 ### Como configurar:
