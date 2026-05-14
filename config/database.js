@@ -4,9 +4,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const sequelize = new Sequelize(
-  'db_name',
-  'username',
-  'password',
+  'receitas_db',
+  'root',
+  'mateus18',
   {
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',

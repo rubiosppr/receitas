@@ -27,12 +27,14 @@ app.use(flash());
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const alunoRoutes = require('./routes/aluno');
-const categoriasRoutes = require('./routes/categorias');
 
 app.use(authRoutes);
 app.use(adminRoutes);
 app.use(alunoRoutes);
-app.use(categoriasRoutes);
+
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
